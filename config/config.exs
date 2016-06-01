@@ -26,6 +26,15 @@ config :plug, :mimes, %{
   "application/vnd.api+json" => ["json-api"]
 }
 
+config :guardian, Guardian,
+  allowed_algos: ["HS512"], # optional
+  verify_module: Guardian.JWT,  # optional
+  issuer: "Pickems",
+  ttl: { 30, :days },
+  verify_issuer: true, # optional
+  secret_key: "shNyrTciR33ly+qhZsgyFaOcarKUBFcgSsdNht2zz4Ha/VsywvdKgZnLQpwn3R1Q",
+  serializer: Pickems.GuardianSerializer
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
