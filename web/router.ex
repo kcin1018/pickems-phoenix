@@ -8,7 +8,7 @@ defmodule Pickems.Router do
   # Authenticated Requests
   pipeline :api_auth do
     plug :accepts, ["json", "json-api"]
-    plug Guardian.Plug.VerifyHeader
+    plug Guardian.Plug.VerifyHeader, realm: "Bearer"
     plug Guardian.Plug.LoadResource
   end
 
