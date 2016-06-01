@@ -38,7 +38,7 @@ defmodule Pickems.UserControllerTest do
     regConn = post regConn, auth_path(regConn, :token), @valid_token
     token = json_response(regConn, 200)["access_token"]
 
-    conn = put_req_header(conn, "authorization", token)
+    conn = put_req_header(conn, "authorization", "Bearer " <> token)
     conn = get conn, user_path(conn, :current)
     assert json_response(conn, 200)["data"]["id"]
     assert json_response(conn, 200)["data"]["type"] == "users"
