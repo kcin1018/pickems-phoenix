@@ -32,16 +32,18 @@ defmodule Pickems.UserControllerTest do
   end
 
   test "displays the current user logged in when logged in", %{conn: conn} do
-    regConn = conn
-    # create a user to make login request with
-    regConn = post regConn, auth_path(regConn, :register), %{data: %{type: "users", attributes: @valid_attrs }}
-    regConn = post regConn, auth_path(regConn, :token), @valid_token
-    token = json_response(regConn, 200)["access_token"]
+    # Create a user (bypasses validation
+    user = Repo.insert! %User{}
+    # Encode a token for the user
+    { :ok, jwt, _ } = Guardian.encode_and_sign(user, :token)
 
-    conn = put_req_header(conn, "authorization", "Bearer " <> token)
+    conn = conn
+    |> put_req_header("content-type", "application/vnd.api+json") # JSON-API content-type
+    |> put_req_header("authorization", "Bearer #{jwt}") # Add token to auth header
+
     conn = get conn, user_path(conn, :current)
     assert json_response(conn, 200)["data"]["id"]
-    assert json_response(conn, 200)["data"]["type"] == "users"
+    assert json_response(conn, 200)["data"]["type"] == "user"
   end
 
 end

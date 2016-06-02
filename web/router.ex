@@ -23,5 +23,9 @@ defmodule Pickems.Router do
     pipe_through :api_auth
 
     get "/users/current", UserController, :current
+    resources "users", UserController, only: [:show, :index] do
+      get "teams", TeamController, :index, as: :teams
+    end
+    resources "teams", TeamController, except: [:new, :edit]
   end
 end

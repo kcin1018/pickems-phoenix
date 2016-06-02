@@ -22,7 +22,7 @@ defmodule Pickems.AuthController do
       {:ok, user} ->
         conn
         |> put_status(:created)
-        |> render(Pickems.UserView, "show.json", user: user)
+        |> render(Pickems.UserView, "show.json", data: user)
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
