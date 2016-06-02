@@ -54,14 +54,13 @@ defmodule Pickems.TeamControllerTest do
       "id" => to_string(team.id),
       "type" => "team",
       "attributes" => %{
-        "name" => team.name
+        "name" => team.name,
         "is-paid" => team.is_paid
       },
       "relationships" => %{
         "owner" => %{
-          "data" => %{
-            "id" => user.id,
-            "type" => "users"
+          "links" => %{
+            "related" => "http://localhost:4001/api/users/#{team.owner_id}"
           }
         }
       }

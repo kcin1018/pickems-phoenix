@@ -1,22 +1,11 @@
 defmodule Pickems.UserView do
   use Pickems.Web, :view
+  use JaSerializer.PhoenixView
 
-  def render("index.json", %{users: users}) do
-    %{data: render_many(users, Pickems.UserView, "user.json")}
-  end
+  attributes [:email, :name]
+  has_many :teams, link: :teams_link
 
-  def render("show.json", %{user: user}) do
-    %{data: render_one(user, Pickems.UserView, "user.json")}
-  end
-
-  def render("user.json", %{user: user}) do
-    %{
-      "type": "users",
-      "id": user.id,
-      "attributes": %{
-        "email": user.email,
-        "name": user.name
-      }
-    }
+  def teams_link(user, conn) do
+    user_teams_url(conn, :index, user.id)
   end
 end

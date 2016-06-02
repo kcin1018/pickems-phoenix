@@ -1,18 +1,11 @@
 defmodule Pickems.TeamView do
   use Pickems.Web, :view
+  use JaSerializer.PhoenixView
 
-  def render("index.json", %{teams: teams}) do
-    %{data: render_many(teams, Pickems.TeamView, "team.json")}
-  end
+  attributes [:name, :is_paid]
+  has_one :owner, link: :user_link
 
-  def render("show.json", %{team: team}) do
-    %{data: render_one(team, Pickems.TeamView, "team.json")}
-  end
-
-  def render("team.json", %{team: team}) do
-    %{id: team.id,
-      name: team.name,
-      owner_id: team.owner_id,
-      is_paid: team.is_paid}
+  def user_link(room, conn) do
+    user_url(conn, :show, room.owner_id)
   end
 end
