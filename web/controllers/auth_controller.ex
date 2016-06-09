@@ -13,7 +13,7 @@ defmodule Pickems.AuthController do
       "password" => password,
       "password-confirmation" => password_confirmation}}}) do
 
-    changeset = User.changeset %User{}, %{email: email,
+    changeset = User.changeset %User{}, %{email: String.downcase(email),
       name: name,
       password_confirmation: password_confirmation,
       password: password}
@@ -35,6 +35,7 @@ defmodule Pickems.AuthController do
     "password" => password}) do
 
     try do
+      username = String.downcase(username)
       # Attempt to retrieve exactly one user from the DB, whose
       #   email matches the one provided with the login request
       user = User
