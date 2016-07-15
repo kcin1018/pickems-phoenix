@@ -15,17 +15,17 @@ defmodule Pickems.Router do
   scope "/api", Pickems do
     pipe_through :api
 
-    post "register", AuthController, :register
-    post "token", AuthController, :token
+    post "/register", AuthController, :register
+    post "/token", AuthController, :token
   end
 
   scope "/api", Pickems do
     pipe_through :api_auth
 
     get "/users/current", UserController, :current
-    resources "users", UserController, only: [:show, :index] do
-      get "teams", TeamController, :index, as: :teams
+    resources "/users", UserController, only: [:show, :index] do
+      get "/teams", TeamController, :index, as: :teams
     end
-    resources "teams", TeamController, except: [:new, :edit]
+    resources "/teams", TeamController, except: [:new, :edit]
   end
 end

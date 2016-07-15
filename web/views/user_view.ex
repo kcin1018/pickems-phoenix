@@ -2,7 +2,7 @@ defmodule Pickems.UserView do
   use Pickems.Web, :view
   use JaSerializer.PhoenixView
 
-  attributes [:email, :name]
+  attributes [:email, :name, :admin]
   has_many :teams, link: :teams_link
 
   def teams_link(user, conn) do

@@ -30,14 +30,15 @@ defmodule Pickems.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:phoenix, "~> 1.1.4"},
+    [{:phoenix, "~> 1.2.0"},
+     {:phoenix_pubsub, "~> 1.0"},
+     {:phoenix_ecto, "~> 2.0.2"},
      {:postgrex, ">= 0.0.0"},
-     {:phoenix_ecto, "~> 2.0"},
-     {:gettext, "~> 0.9"},
+     {:gettext, "~> 0.11"},
      {:cors_plug, "~> 1.1"},
-     {:guardian, "~> 0.10.0"},
-     {:comeonin, "~> 2.4"},
-     {:ja_serializer, "~> 0.8.1"},
+     {:comeonin, "~> 2.5"},
+     {:guardian, "~> 0.12.0"},
+     {:ja_serializer, "~> 0.9.0"},
      {:cowboy, "~> 1.0"}]
   end
 

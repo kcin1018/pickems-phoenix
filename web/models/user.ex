@@ -5,6 +5,7 @@ defmodule Pickems.User do
     field :email, :string
     field :password_hash, :string
     field :name, :string
+    field :admin, :boolean
 
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
@@ -24,11 +25,16 @@ defmodule Pickems.User do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    |> downcase_email
     |> validate_format(:email, ~r/@/)
     |> validate_length(:password, min: 6)
     |> validate_confirmation(:password)
     |> hash_password
     |> unique_constraint(:email)
+  end
+
+  def downcase_email(changeset) do
+    update_change(changeset, :email, &String.downcase/1)
   end
 
   defp hash_password(%{valid?: false} = changeset), do: changeset

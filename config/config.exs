@@ -5,6 +5,9 @@
 # is restricted to this project.
 use Mix.Config
 
+config :pickems,
+  ecto_repos: [Pickems.Repo]
+
 # Configures the endpoint
 config :pickems, Pickems.Endpoint,
   url: [host: "localhost"],
@@ -38,8 +41,3 @@ config :guardian, Guardian,
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
-
-# Configure phoenix generators
-config :phoenix, :generators,
-  migration: true,
-  binary_id: false

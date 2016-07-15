@@ -6,6 +6,7 @@ defmodule Pickems.Repo.Migrations.CreateUser do
       add :email, :string
       add :password_hash, :string
       add :name, :string
+      add :admin, :boolean
 
       timestamps
     end

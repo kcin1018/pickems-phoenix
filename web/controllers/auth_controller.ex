@@ -5,18 +5,15 @@ defmodule Pickems.AuthController do
 
   import Ecto.Query, only: [where: 2]
   import Comeonin.Bcrypt
-  import Logger
+  # import Logger
 
   def register(conn, %{"data" => %{"type" => "users",
-    "attributes" => %{"email" => email,
-      "name" => name,
-      "password" => password,
-      "password-confirmation" => password_confirmation}}}) do
+    "attributes" => attrs}}) do
 
-    changeset = User.changeset %User{}, %{email: String.downcase(email),
-      name: name,
-      password_confirmation: password_confirmation,
-      password: password}
+    changeset = User.changeset %User{}, %{email: attrs["email"],
+      name: attrs["name"],
+      password_confirmation: attrs["password-confirmation"],
+      password: attrs["password"]}
 
     case Repo.insert changeset do
       {:ok, user} ->
@@ -45,7 +42,7 @@ defmodule Pickems.AuthController do
 
         checkpw(password, user.password_hash) ->
           # Successful login
-          Logger.info "User " <> username <> " just logged in"
+          # Logger.info "User " <> username <> " just logged in"
           # Encode a JWT
           { :ok, jwt, _} = Guardian.encode_and_sign(user, :token)
           conn
@@ -53,7 +50,7 @@ defmodule Pickems.AuthController do
 
         true ->
           # Unsuccessful login
-          Logger.warning "User " <> username <> " just failed to login"
+          # Logger.warning "User " <> username <> " just failed to login"
           conn
           |> put_status(401)
           |> render(Pickems.ErrorView, "401.json") # 401
@@ -61,7 +58,7 @@ defmodule Pickems.AuthController do
     rescue
       e ->
         IO.inspect e # Print error to the console for debugging
-        Logger.error "Unexpected error while attempting to login user " <> username
+        # Logger.error "Unexpected error while attempting to login user " <> username
         conn
         |> put_status(401)
         |> render(Pickems.ErrorView, "401.json") # 401

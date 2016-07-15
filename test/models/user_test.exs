@@ -3,7 +3,7 @@ defmodule Pickems.UserTest do
 
   alias Pickems.User
 
-  @valid_attrs %{email: "testuser@example.com", name: "Test User", password: "testing123", password_confirmation: "testing123"}
+  @valid_attrs %{email: "testuser@example.com", name: "Test User", password: "testing123", password_confirmation: "testing123", admin: false}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do

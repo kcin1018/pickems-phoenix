@@ -7,7 +7,8 @@ defmodule Pickems.AuthControllerTest do
     email: "testuser@example.com",
     name: "Test User",
     password: "fqhi12hrrfasf",
-    "password-confirmation": "fqhi12hrrfasf"
+    "password-confirmation": "fqhi12hrrfasf",
+    admin: false
   }
 
   @invalid_attrs %{}
@@ -37,11 +38,10 @@ defmodule Pickems.AuthControllerTest do
   end
 
   test "does not create resource and renders errors when data is invalid", %{conn: conn} do
-    assert_error_sent 400, fn ->
-      conn = post conn, auth_path(conn, :register),  %{data: %{type: "users",
-        attributes: @invalid_attrs
-      }}
-    end
+    conn = post conn, auth_path(conn, :register),  %{data: %{type: "users",
+      attributes: @invalid_attrs
+    }}
+    assert json_response(conn, 422)["errors"]
   end
 
   test "displays unsupported grant type for invalid token request", %{conn: conn} do

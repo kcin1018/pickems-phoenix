@@ -7,7 +7,8 @@ defmodule Pickems.UserControllerTest do
     email: "testuser@example.com",
     name: "Test User",
     password: "fqhi12hrrfasf",
-    "password-confirmation": "fqhi12hrrfasf"
+    "password-confirmation": "fqhi12hrrfasf",
+    admin: false
   }
 
   @valid_token %{
