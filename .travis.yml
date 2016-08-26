@@ -1,0 +1,17 @@
+language: elixir
+elixir:
+- 1.3
+otp_release:
+- 19.0
+sudo: false
+addons:
+  postgresql: '9.4'
+before_script:
+- psql -c 'create database peepchat_test;' -U postgres
+deploy:
+  provider: heroku
+  api_key:
+    secure: No2wa/kfQqtgsCMJFiGtomfxS/SeQOKaKgq9iYKyMflgMH1H9Pc4l50wJ//J7EHzGQPpkU/7DmwSbBweR5GYeX/rwk3m0Co5l0qn/z5n0UX8aE9dh/pN5xSe1xRHiBTWls8PjxBYTHFNg71Ueic3rolf6p4hM9sxw1V0C6KyeN/Mu551GNa7SW8QYaE2bbdMPXIe00EABKd5f4g1GHxrvYfRtEEnBpUEedOdctEq9KI2XyGIwl4F2mMJQbnA6ysifwwPYxrBTBA94qaFP75GKptTkiV+syB7CbS4um4K1a9HbB9h35WZEIvZBlbD+YSJycgyZmpxFewZJ0tb7o5ipebgcaPw/o1FoPKlup9Bf7mjflEa32AWT7zLPCGYvaBUgeB0kJQeQaYdN1yrzJnc1XmuU009EdTV90qmfEtUIo9yIOsn1lJaDriVgEghOVfNdy3xDUrtPTbWIdoH0sUCUJmeQ9kv37oU+NFGCjx3UtRwRpmU8vscgBkO+DKAIY5AcVhAo7WZVCIFVknaCVpvpvFddO8bEeaaCexPtHB0Yl7PA1rVnfYNA6Gegk7089EEowmvr1ghtfE9hEFWkGwuf4WCsLm5CaI73UGB/pEXmNnK/PK5MkDu3b1/Ns35/4ZFSbqSgtfjHuPaBGz+vUMHMk2plNerqZo7h7IeSkNOljo=
+  app: pickems-api
+  on:
+    repo: kcin1018/pickems-phoenix
